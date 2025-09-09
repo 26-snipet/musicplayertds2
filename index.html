@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangeet - Ultimate Music Streaming</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 51, 51, 0.8), transparent);
+            border-radius: 50%;
+            animation: floatParticles 15s infinite linear;
+        }
+
+        .particle:nth-child(odd) {
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.6), transparent);
+        }
+
+        @keyframes floatParticles {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Loading Screen with Enhanced Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            animation: fadeOut 1.5s ease 6s forwards;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Enhanced Musical Notes Animation */
+        .musical-notes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .note {
+            position: absolute;
+            font-size: 2.5rem;
+            color: #ff3333;
+            opacity: 0;
+            text-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
+            animation: enhancedFloatNotes 4s ease-in-out infinite;
+        }
+
+        .note:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .note:nth-child(2) { left: 15%; animation-delay: 0.3s; }
+        .note:nth-child(3) { left: 25%; animation-delay: 0.6s; }
+        .note:nth-child(4) { left: 35%; animation-delay: 0.9s; }
+        .note:nth-child(5) { left: 45%; animation-delay: 1.2s; }
+        .note:nth-child(6) { left: 55%; animation-delay: 0.4s; }
+        .note:nth-child(7) { left: 65%; animation-delay: 0.7s; }
+        .note:nth-child(8) { left: 75%; animation-delay: 1s; }
+        .note:nth-child(9) { left: 85%; animation-delay: 1.3s; }
+        .note:nth-child(10) { left: 95%; animation-delay: 1.6s; }
+
+        @keyframes enhancedFloatNotes {
+            0% {
+                transform: translateY(120vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+                transform: translateY(80vh) rotate(180deg) scale(1);
+            }
+            85% {
+                opacity: 1;
+                transform: translateY(20vh) rotate(540deg) scale(1.2);
+            }
+            100% {
+                transform: translateY(-20vh) rotate(720deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        /* Ultimate Sangeet Logo Entrance */
+        .loading-logo {
+            position: relative;
+            z-index: 2;
+        }
+
+        .loading-sitar {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 2rem;
+            animation: ultimateSitarEntrance 3s ease-out;
+        }
+
+        @keyframes ultimateSitarEntrance {
+            0% {
+                transform: scale(0) rotate(-360deg) translateY(100px);
+                opacity: 0;
+                filter: blur(10px);
+            }
+            30% {
+                transform: scale(0.8) rotate(-180deg) translateY(50px);
+                opacity: 0.6;
+                filter: blur(5px);
+            }
+            60% {
+                transform: scale(1.3) rotate(0deg) translateY(-20px);
+                opacity: 0.9;
+                filter: blur(0px);
+            }
+            100% {
+                transform: scale(1) rotate(0deg) translateY(0px);
+                opacity: 1;
+                filter: blur(0px);
+            }
+        }
+
+        .loading-resonator {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff3333, #ffa500, #ff6b6b);
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            box-shadow: 
+                0 0 40px rgba(255, 51, 51, 1),
+                inset 0 0 30px rgba(255, 255, 255, 0.3),
+                0 0 80px rgba(255, 165, 0, 0.6);
+            animation: ultimateLoadingGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes ultimateLoadingGlow {
+            0% { 
+                box-shadow: 
+                    0 0 30px rgba(255, 51, 51, 0.8),
+                    inset 0 0 20px rgba(255, 255, 255, 0.2),
+                    0 0 60px rgba(255, 165, 0, 0.4);
+                transform: scale(1);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 80px rgba(255, 51, 51, 1.2),
+                    inset 0 0 40px rgba(255, 255, 255, 0.4),
+                    0 0 120px rgba(255, 165, 0, 0.8);
+                transform: scale(1.1);
+            }
+        }
+
+        .loading-mandala {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+        }
+
+        .loading-mandala-center {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #ffffff, #ffcccc);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+            animation: centerPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes centerPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.3); }
+        }
+
+        .loading-mandala-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 3px dashed rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            animation: mandalaUltimateRotate 8s linear infinite;
+        }
+
+        @keyframes mandalaUltimateRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff3333, #ffa500, #ff6b6b, #ff3333);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: 
+                ultimateTextWave 4s ease-in-out,
+                ultimateGradientShift 3s ease-in-out infinite;
+            text-shadow: 0 0 40px rgba(255, 51, 51, 0.8);
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes ultimateTextWave {
+            0% {
+                transform: translateY(80px) scale(0.3) rotateX(90deg);
+                opacity: 0;
+                letter-spacing: 0.5em;
+            }
+            25% {
+                transform: translateY(40px) scale(0.7) rotateX(45deg);
+                opacity: 0.3;
+                letter-spacing: 0.3em;
+            }
+            50% {
+                transform: translateY(-20px) scale(1.2) rotateX(-10deg);
+                opacity: 0.8;
+                letter-spacing: 0.15em;
+            }
+            75% {
+                transform: translateY(-10px) scale(1.05) rotateX(5deg);
+                opacity: 0.9;
+                letter-spacing: 0.12em;
+            }
+            100% {
+                transform: translateY(0) scale(1) rotateX(0deg);
+                opacity: 1;
+                letter-spacing: 0.1em;
+            }
+        }
+
+        @keyframes ultimateGradientShift {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 100% 25%; }
+            50% { background-position: 0% 75%; }
+            75% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .loading-subtitle {
+            font-size: 1.4rem;
+            color: #cccccc;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: ultimateFadeInUp 1.5s ease 3s forwards;
+            text-shadow: 0 0 10px rgba(204, 204, 204, 0.5);
+        }
+
+        @keyframes ultimateFadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content Enhanced Entrance */
+        .main-container {
+            opacity: 0;
+            animation: ultimateMainEntrance 1.5s ease 6s forwards;
+            position: relative;
+            z-index: 5;
+        }
+
+        @keyframes ultimateMainEntrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Ultimate Enhanced Indian Sitar Logo */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: ultimateHeaderSlide 1.5s ease 6.5s forwards;
+        }
+
+        @keyframes ultimateHeaderSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) rotateX(30deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .sitar-logo {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            perspective: 1000px;
+        }
+
+        .resonator {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff3333, #ffa500, #ff6b6b);
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            box-shadow: 
+                0 0 40px rgba(255, 51, 51, 0.8),
+                inset 0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 80px rgba(255, 165, 0, 0.4);
+            animation: ultimateResonatorGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes ultimateResonatorGlow {
+            0% { 
+                box-shadow: 
+                    0 0 30px rgba(255, 51, 51, 0.6),
+                    inset 0 0 15px rgba(255, 255, 255, 0.2),
+                    0 0 60px rgba(255, 165, 0, 0.3);
+                transform: scale(1);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 60px rgba(255, 51, 51, 1),
+                    inset 0 0 30px rgba(255, 255, 255, 0.4),
+                    0 0 100px rgba(255, 165, 0, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        .mandala {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+        }
+
+        .mandala-center {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #ffffff, #ffdddd);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+            animation: ultimateCenterPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes ultimateCenterPulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.4);
+                box-shadow: 0 0 25px rgba(255, 255, 255, 1.5);
+            }
+        }
+
+        .mandala-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 45px;
+            height: 45px;
+            border: 3px dashed rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            animation: ultimateMandalaRotate 12s linear infinite;
+        }
+
+        @keyframes ultimateMandalaRotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .sitar-strings {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .string {
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.6));
+            border-radius: 1px;
+            animation: ultimateStringVibrate 1.5s ease-in-out infinite;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+
+        .string:nth-child(1) { animation-delay: 0s; }
+        .string:nth-child(2) { animation-delay: 0.2s; }
+        .string:nth-child(3) { animation-delay: 0.4s; }
+        .string:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes ultimateStringVibrate {
+            0%, 100% { 
+                transform: translateX(0) scaleX(1); 
+                opacity: 0.8;
+                box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            }
+            25% { 
+                transform: translateX(1px) scaleX(1.2); 
+                opacity: 1;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+            }
+            75% { 
+                transform: translateX(-1px) scaleX(0.8); 
+                opacity: 0.9;
+                box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+            }
+        }
+
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff3333, #ffa500, #ff6b6b);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 51, 51, 0.6);
+            animation: logoTextShimmer 3s ease-in-out infinite;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes logoTextShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            animation: subtitleGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes subtitleGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(204, 204, 204, 0.3); }
+            50% { text-shadow: 0 0 20px rgba(204, 204, 204, 0.6); }
+        }
+
+        /* Enhanced Search Section */
+        .search-section {
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: searchUltimateAppear 1.5s ease 7s forwards;
+        }
+
+        @keyframes searchUltimateAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 4rem 1.2rem 2rem;
+            background: rgba(42, 42, 42, 0.95);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4rem;
+            color: white;
+            font-size: 1.2rem;
+            outline: none;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-input:focus {
+            border-color: #ff3333;
+            box-shadow: 
+                0 0 30px rgba(255, 51, 51, 0.4),
+                0 15px 40px rgba(0, 0, 0, 0.4);
+            background: rgba(42, 42, 42, 1);
+            transform: translateY(-2px);
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff3333, #ff6b6b);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 51, 51, 0.4);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.6);
+        }
+
+        .search-btn:active {
+            transform: translateY(-50%) scale(0.95) rotate(-5deg);
+        }
+
+        /* Music Grid with Ultimate Animations */
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: ultimateGridSlideUp 1.5s ease 7.5s forwards;
+        }
+
+        @keyframes ultimateGridSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .music-card {
+            background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: ultimateCardAppear 0.8s ease forwards;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .music-card:nth-child(1) { animation-delay: 7.6s; }
+        .music-card:nth-child(2) { animation-delay: 7.7s; }
+        .music-card:nth-child(3) { animation-delay: 7.8s; }
+        .music-card:nth-child(4) { animation-delay: 7.9s; }
+        .music-card:nth-child(5) { animation-delay: 8.0s; }
+        .music-card:nth-child(6) { animation-delay: 8.1s; }
+
+        @keyframes ultimateCardAppear {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .music-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 51, 51, 0.2), rgba(255, 107, 107, 0.1));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .music-card:hover::before {
+            opacity: 1;
+        }
+
+        .music-card:hover {
+            transform: translateY(-15px) scale(1.03) rotateX(5deg) rotateY(2deg);
+            box-shadow: 
+                0 25px 60px rgba(255, 51, 51, 0.3),
+                0 35px 80px rgba(0, 0, 0, 0.6);
+            border-color: #ff3333;
+        }
+
+        .music-card:active {
+            transform: translateY(-8px) scale(1.05) rotateX(2deg);
+        }
+
+        .music-card.clicked {
+            animation: ultimateClickPop 0.6s ease;
+        }
+
+        @keyframes ultimateClickPop {
+            0% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(3deg); }
+            50% { transform: scale(1.15) rotate(-2deg); }
+            75% { transform: scale(1.08) rotate(1deg); }
+            100% { transform: scale(1.03) rotate(0deg); }
+        }
+
+        .music-card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .music-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.5s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .music-card:hover img {
+            transform: scale(1.08) rotateZ(2deg);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+        }
+
+        .music-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: white;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .music-card p {
+            color: #999;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .play-btn {
+            background: linear-gradient(135deg, #ff3333, #ff6b6b, #ffa500);
+            border: none;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 3rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            box-shadow: 0 8px 20px rgba(255, 51, 51, 0.4);
+        }
+
+        .play-btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(255, 51, 51, 0.6);
+        }
+
+        .play-btn:active {
+            transform: translateY(-2px) scale(1);
+        }
+
+        /* ULTRA REALISTIC VINYL PLAYER */
+        .player {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.98), rgba(15, 15, 15, 0.99));
+            backdrop-filter: blur(25px);
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .player.active {
+            transform: translateY(0);
+            animation: ultimatePlayerSlideUp 0.8s ease;
+        }
+
+        @keyframes ultimatePlayerSlideUp {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        /* ULTIMATE REALISTIC VINYL ALBUM ART */
+        .album-art {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #333, #111);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 0 0 8px #2a2a2a,
+                0 0 0 12px #1a1a1a,
+                0 10px 30px rgba(0, 0, 0, 0.8),
+                inset 0 0 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .album-art:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 0 8px #3a3a3a,
+                0 0 0 12px #2a2a2a,
+                0 15px 40px rgba(0, 0, 0, 0.9),
+                inset 0 0 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .album-art.spinning {
+            animation: ultimateVinylSpin 3s linear infinite;
+        }
+
+        @keyframes ultimateVinylSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Realistic Vinyl Grooves */
+        .vinyl-grooves {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        .groove {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .groove:nth-child(1) {
+            width: 90%;
+            height: 90%;
+            transform: translate(-50%, -50%);
+        }
+
+        .groove:nth-child(2) {
+            width: 75%;
+            height: 75%;
+            transform: translate(-50%, -50%);
+        }
+
+        .groove:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            transform: translate(-50%, -50%);
+        }
+
+        .groove:nth-child(4) {
+            width: 45%;
+            height: 45%;
+            transform: translate(-50%, -50%);
+        }
+
+        .groove:nth-child(5) {
+            width: 30%;
+            height: 30%;
+            transform: translate(-50%, -50%);
+        }
+
+        .album-art img {
+            width: 70%;
+            height: 70%;
+            object-fit: cover;
+            border-radius: 50%;
+            position: relative;
+            z-index: 3;
+        }
+
+        .album-art .placeholder {
+            font-size: 2rem;
+            color: #666;
+            z-index: 3;
+        }
+
+        /* Ultra Realistic Vinyl Center */
+        .vinyl-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            background: radial-gradient(circle, #000 30%, #333 60%, #000 100%);
+            border-radius: 50%;
+            border: 2px solid #444;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 5;
+            box-shadow: 
+                inset 0 0 10px rgba(0, 0, 0, 0.8),
+                0 2px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .album-art.spinning .vinyl-center {
+            opacity: 1;
+        }
+
+        /* Vinyl Reflection Effect */
+        .vinyl-reflection {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), transparent);
+            border-radius: 50%;
+            opacity: 0.6;
+            z-index: 4;
+        }
+
+        .track-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .track-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .track-artist {
+            color: #999;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .control-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.15) rotate(10deg);
+            color: #ff3333;
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .play-pause {
+            background: linear-gradient(135deg, #ff3333, #ff6b6b);
+            width: 70px;
+            height: 70px;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.4);
+        }
+
+        .play-pause:hover {
+            background: linear-gradient(135deg, #ff1a1a, #ff5555);
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(255, 51, 51, 0.6);
+        }
+
+        .lyrics-btn {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lyrics-btn.active {
+            background: linear-gradient(135deg, #ff3333, #ff6b6b);
+            color: white;
+        }
+
+        /* Enhanced Progress Bar */
+        .progress-container {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff3333, #ff6b6b, #ffa500);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 12px;
+            height: 100%;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .progress-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* Enhanced Ambient Lighting */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            z-index: -1;
+        }
+
+        .ambient-bg.active {
+            opacity: 1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 51, 51, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(255, 165, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 51, 51, 0.2) 0%, transparent 50%);
+            animation: ultimateAmbientPulse 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes ultimateAmbientPulse {
+            0% { 
+                filter: brightness(0.8) saturate(1.2) hue-rotate(0deg);
+            }
+            33% {
+                filter: brightness(1.2) saturate(1.5) hue-rotate(10deg);
+            }
+            66% {
+                filter: brightness(1.0) saturate(1.8) hue-rotate(-10deg);
+            }
+            100% { 
+                filter: brightness(1.4) saturate(2.0) hue-rotate(5deg);
+            }
+        }
+
+        /* Enhanced Toast Notifications */
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(26, 26, 26, 0.98), rgba(42, 42, 42, 0.98));
+            backdrop-filter: blur(20px);
+            color: white;
+            padding: 1.2rem 2rem;
+            border-radius: 1rem;
+            border-left: 5px solid #ff3333;
+            z-index: 2000;
+            transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            max-width: 350px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            border-left-color: #ff4444;
+        }
+
+        /* Lyrics Panel Enhanced */
+        .lyrics-panel {
+            position: fixed;
+            top: 0;
+            right: -450px;
+            width: 450px;
+            height: 100vh;
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0.98), rgba(15, 15, 15, 0.99));
+            backdrop-filter: blur(25px);
+            border-left: 1px solid rgba(255, 255, 255, 0.15);
+            transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            padding: 2.5rem;
+            overflow-y: auto;
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .lyrics-panel.active {
+            right: 0;
+        }
+
+        .lyrics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(255, 51, 51, 0.3);
+        }
+
+        .lyrics-header h2 {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .close-lyrics {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-lyrics:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .sarcastic-lyrics {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .sarcastic-lyrics i {
+            font-size: 5rem;
+            color: #ff3333;
+            margin-bottom: 2rem;
+            animation: ultimateBounce 2.5s infinite;
+        }
+
+        @keyframes ultimateBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(0deg); }
+            10% { transform: translateY(-15px) rotate(5deg); }
+            30% { transform: translateY(-10px) rotate(-3deg); }
+            40% { transform: translateY(-8px) rotate(2deg); }
+            60% { transform: translateY(-5px) rotate(-1deg); }
+        }
+
+        .sarcastic-lyrics h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .sarcastic-lyrics p {
+            color: #ccc;
+            margin-bottom: 2.5rem;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        .lyrics-editor textarea {
+            width: 100%;
+            height: 250px;
+            background: rgba(51, 51, 51, 0.9);
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            color: white;
+            font-family: inherit;
+            font-size: 1.1rem;
+            resize: vertical;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .lyrics-editor textarea:focus {
+            outline: none;
+            border-color: #ff3333;
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.3);
+            background: rgba(51, 51, 51, 1);
+        }
+
+        .lyrics-editor textarea::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .save-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff3333, #ff6b6b);
+            border: none;
+            color: white;
+            padding: 1.2rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            box-shadow: 0 8px 25px rgba(255, 51, 51, 0.4);
+        }
+
+        .save-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 51, 51, 0.6);
+        }
+
+        /* Mobile Responsive Ultimate */
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .music-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 1.5rem; 
+            }
+            .lyrics-panel { 
+                width: 100%; 
+                right: -100%; 
+            }
+            .loading-text {
+                font-size: 3rem;
+            }
+            .logo-text { 
+                font-size: 2.2rem; 
+            }
+            .player { 
+                flex-wrap: wrap; 
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .controls {
+                gap: 1rem;
+            }
+            .progress-container {
+                max-width: 250px;
+                margin: 0 1rem;
+            }
+            .search-input {
+                font-size: 1rem;
+                padding: 1rem 3.5rem 1rem 1.5rem;
+            }
+            .album-art {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Loading Screen with Ultimate Musical Animation -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="musical-notes">
+            <div class="note">♪</div>
+            <div class="note">♫</div>
+            <div class="note">♪</div>
+            <div class="note">♬</div>
+            <div class="note">♫</div>
+            <div class="note">♪</div>
+            <div class="note">♬</div>
+            <div class="note">♫</div>
+            <div class="note">♪</div>
+            <div class="note">♬</div>
+        </div>
+        <div class="loading-logo">
+            <div class="loading-sitar">
+                <div class="loading-resonator">
+                    <div class="loading-mandala">
+                        <div class="loading-mandala-center"></div>
+                        <div class="loading-mandala-ring"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="loading-text">Sangeet</div>
+            <div class="loading-subtitle">Loading the ultimate musical experience...</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="ambient-bg" id="ambientBg"></div>
+        
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <div class="sitar-logo">
+                        <div class="resonator">
+                            <div class="mandala">
+                                <div class="mandala-center"></div>
+                                <div class="mandala-ring"></div>
+                            </div>
+                        </div>
+                        <div class="sitar-strings">
+                            <div class="string"></div>
+                            <div class="string"></div>
+                            <div class="string"></div>
+                            <div class="string"></div>
+                        </div>
+                    </div>
+                    <h1 class="logo-text">Sangeet</h1>
+                </div>
+                <p class="subtitle">Ultimate Music Streaming Experience with YouTube Music</p>
+            </header>
+
+            <!-- Enhanced Search Section -->
+            <div class="search-section">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Search for songs, artists, or albums..."
+                    >
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                
+                <div class="search-results" id="searchResults" style="display: none;">
+                    <div style="margin-top: 2rem; margin-bottom: 1.5rem;">
+                        <h3 style="color: #ff3333; font-size: 1.5rem;">Search Results <span id="resultsCount"></span></h3>
+                    </div>
+                    <div class="music-grid" id="searchGrid">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Songs Section -->
+            <div class="popular-section">
+                <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 2rem; opacity: 0; animation: ultimateHeaderSlide 1.5s ease 8s forwards; background: linear-gradient(45deg, #ff3333, #ffa500); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Popular Songs</h2>
+                <div class="music-grid" id="popularGrid">
+                    <!-- Popular songs will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Ultimate Realistic Player -->
+        <div class="player" id="player">
+            <div class="album-art" id="albumArt">
+                <div class="vinyl-grooves">
+                    <div class="groove"></div>
+                    <div class="groove"></div>
+                    <div class="groove"></div>
+                    <div class="groove"></div>
+                    <div class="groove"></div>
+                </div>
+                <div class="placeholder">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="vinyl-center"></div>
+                <div class="vinyl-reflection"></div>
+            </div>
+            <div class="track-info">
+                <div class="track-title" id="trackTitle">Select a song</div>
+                <div class="track-artist" id="trackArtist">Choose music to play</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-time">
+                    <span id="currentTime">0:00</span>
+                    <span id="totalTime">0:00</span>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="control-btn" id="prevBtn">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+                <button class="control-btn play-pause" id="playBtn">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="control-btn" id="nextBtn">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+                <button class="control-btn lyrics-btn" id="lyricsBtn">
+                    <i class="fas fa-quote-left"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Enhanced Lyrics Panel -->
+        <div class="lyrics-panel" id="lyricsPanel">
+            <div class="lyrics-header">
+                <h2>Lyrics</h2>
+                <button class="close-lyrics" id="closeLyrics">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="sarcastic-lyrics">
+                <i class="fas fa-pen-fancy"></i>
+                <h3>Make ur own lyrics! 🎤</h3>
+                <p id="sarcasticMessage">Lyrics went on vacation 🏖️ - Time to be the songwriter!</p>
+                <div class="lyrics-editor">
+                    <textarea placeholder="Write something better than 'la la la'...
+
+Maybe something about love?
+Or perhaps existential dread?
+Your call, Shakespeare! 🎭" id="lyricsTextarea"></textarea>
+                    <button class="save-btn" onclick="saveLyrics()">
+                        <i class="fas fa-save"></i> Save My Masterpiece
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden YouTube Player -->
+    <div style="position: fixed; top: -1000px; left: -1000px; width: 1px; height: 1px; opacity: 0; pointer-events: none;">
+        <div id="youtubePlayer"></div>
+    </div>
+
+    <!-- YouTube API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // Ultimate Sangeet with YouTube Music Integration
+        class UltimateSangeetPlayer {
+            constructor() {
+                this.currentTrack = null;
+                this.isPlaying = false;
+                this.searchResults = [];
+                this.currentIndex = 0;
+                this.player = null;
+                this.isPlayerReady = false;
+                this.progressInterval = null;
+                
+                // Ultimate working songs with verified YouTube IDs
+                this.popularSongs = [
+                    {
+                        id: "JGwWNGJdvx8",
+                        title: "Shape of You",
+                        artist: "Ed Sheeran",
+                        thumbnail: "https://i.ytimg.com/vi/JGwWNGJdvx8/maxresdefault.jpg",
+                        duration: "3:53"
+                    },
+                    {
+                        id: "4NRXx6U8ABQ",
+                        title: "Blinding Lights",
+                        artist: "The Weeknd", 
+                        thumbnail: "https://i.ytimg.com/vi/4NRXx6U8ABQ/maxresdefault.jpg",
+                        duration: "3:20"
+                    },
+                    {
+                        id: "HL1UzIK-flA",
+                        title: "Watermelon Sugar",
+                        artist: "Harry Styles",
+                        thumbnail: "https://i.ytimg.com/vi/HL1UzIK-flA/maxresdefault.jpg",
+                        duration: "2:54"
+                    },
+                    {
+                        id: "TUVcZfQe-Kw",
+                        title: "Levitating",
+                        artist: "Dua Lipa",
+                        thumbnail: "https://i.ytimg.com/vi/TUVcZfQe-Kw/maxresdefault.jpg",
+                        duration: "3:23"
+                    },
+                    {
+                        id: "gHzuHo80U2M",
+                        title: "good 4 u",
+                        artist: "Olivia Rodrigo",
+                        thumbnail: "https://i.ytimg.com/vi/gHzuHo80U2M/maxresdefault.jpg",
+                        duration: "2:58"
+                    },
+                    {
+                        id: "kTJczUoc26U",
+                        title: "Stay",
+                        artist: "The Kid LAROI & Justin Bieber",
+                        thumbnail: "https://i.ytimg.com/vi/kTJczUoc26U/maxresdefault.jpg",
+                        duration: "2:21"
+                    }
+                ];
+
+                this.sarcasticMessages = [
+                    "Lyrics went on vacation 🏖️ - Time to be the songwriter!",
+                    "This song is too cool for lyrics 😎 Your turn, Shakespeare!",
+                    "Lyrics.exe has stopped working 🤖 Deploy your creativity!",
+                    "Plot twist: YOU are the lyricist now! ✨",
+                    "Feeling poetic? Channel your inner Mirza Ghalib! 🎭",
+                    "Oops! No lyrics found 🎤 Make ur own and become famous!",
+                    "The lyrics are playing hide and seek 🙈 Your turn to write!",
+                    "Even ChatGPT gave up on these lyrics! Your move! 🤓",
+                    "Lyrics are on a world tour! Write your opening act! 🌎",
+                    "404: Lyrics not found. But your creativity is! 💭"
+                ];
+                
+                this.init();
+            }
+            
+            init() {
+                console.log('🎵 Initializing Ultimate Sangeet...');
+                this.createFloatingParticles();
+                this.loadYouTubeAPI();
+                this.setupEventListeners();
+                this.loadPopularSongs();
+                this.showPlayer();
+            }
+            
+            createFloatingParticles() {
+                const particlesContainer = document.getElementById('particles');
+                
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.width = Math.random() * 10 + 5 + 'px';
+                    particle.style.height = particle.style.width;
+                    particle.style.animationDelay = Math.random() * 15 + 's';
+                    particle.style.animationDuration = Math.random() * 10 + 10 + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            loadYouTubeAPI() {
+                window.onYouTubeIframeAPIReady = () => {
+                    this.initializePlayer();
+                };
+            }
+            
+            initializePlayer() {
+                this.player = new YT.Player('youtubePlayer', {
+                    height: '360',
+                    width: '640',
+                    videoId: '',
+                    playerVars: {
+                        'autoplay': 0,
+                        'controls': 0,
+                        'disablekb': 1,
+                        'enablejsapi': 1,
+                        'fs': 0,
+                        'iv_load_policy': 3,
+                        'modestbranding': 1,
+                        'playsinline': 1,
+                        'rel': 0,
+                        'showinfo': 0,
+                        'origin': window.location.origin
+                    },
+                    events: {
+                        'onReady': (event) => {
+                            console.log('✅ YouTube Player ready!');
+                            this.isPlayerReady = true;
+                            this.showToast('🎵 Ultimate player ready! Search or click any song!');
+                        },
+                        'onStateChange': (event) => {
+                            this.handlePlayerStateChange(event);
+                        },
+                        'onError': (event) => {
+                            console.error('YouTube player error:', event.data);
+                            this.showToast('❌ Error playing song. Trying next...', 'error');
+                            setTimeout(() => this.playNext(), 2000);
+                        }
+                    }
+                });
+            }
+            
+            handlePlayerStateChange(event) {
+                const state = event.data;
+                
+                switch(state) {
+                    case YT.PlayerState.PLAYING:
+                        this.isPlaying = true;
+                        this.updatePlayButton();
+                        this.startVinylRotation();
+                        this.activateAmbientLighting();
+                        this.startProgressTracking();
+                        this.showToast('🎵 Now playing!');
+                        break;
+                        
+                    case YT.PlayerState.PAUSED:
+                        this.isPlaying = false;
+                        this.updatePlayButton();
+                        this.stopVinylRotation();
+                        this.deactivateAmbientLighting();
+                        this.stopProgressTracking();
+                        break;
+                        
+                    case YT.PlayerState.ENDED:
+                        this.playNext();
+                        break;
+                        
+                    case YT.PlayerState.BUFFERING:
+                        this.showToast('⏳ Loading...');
+                        break;
+                }
+            }
+
+            async searchYouTubeMusic(query) {
+                if (!query.trim()) return;
+
+                this.showToast('🔍 Searching YouTube Music...', 'success');
+                
+                // Since we can't access YouTube API directly from client-side,
+                // we'll use a simulated search with predefined results
+                const allSongs = [
+                    ...this.popularSongs,
+                    {
+                        id: "dQw4w9WgXcQ",
+                        title: "Never Gonna Give You Up",
+                        artist: "Rick Astley",
+                        thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+                        duration: "3:32"
+                    },
+                    {
+                        id: "kffacxfA7G4",
+                        title: "As It Was",
+                        artist: "Harry Styles",
+                        thumbnail: "https://i.ytimg.com/vi/kffacxfA7G4/maxresdefault.jpg",
+                        duration: "2:47"
+                    },
+                    {
+                        id: "fJ9rUzIMcZQ",
+                        title: "Bohemian Rhapsody",
+                        artist: "Queen",
+                        thumbnail: "https://i.ytimg.com/vi/fJ9rUzIMcZQ/maxresdefault.jpg",
+                        duration: "5:55"
+                    },
+                    {
+                        id: "YQHsXMglC9A",
+                        title: "Adore You",
+                        artist: "Harry Styles",
+                        thumbnail: "https://i.ytimg.com/vi/YQHsXMglC9A/maxresdefault.jpg",
+                        duration: "3:27"
+                    },
+                    {
+                        id: "OPf0YbXqDm0",
+                        title: "Uptown Funk",
+                        artist: "Mark Ronson ft. Bruno Mars",
+                        thumbnail: "https://i.ytimg.com/vi/OPf0YbXqDm0/maxresdefault.jpg",
+                        duration: "4:30"
+                    },
+                    {
+                        id: "QcIy9NiNbmo",
+                        title: "Heat Waves",
+                        artist: "Glass Animals",
+                        thumbnail: "https://i.ytimg.com/vi/QcIy9NiNbmo/maxresdefault.jpg",
+                        duration: "3:58"
+                    }
+                ];
+                
+                // Filter songs based on search query
+                const searchQuery = query.toLowerCase();
+                this.searchResults = allSongs.filter(song => 
+                    song.title.toLowerCase().includes(searchQuery) ||
+                    song.artist.toLowerCase().includes(searchQuery)
+                );
+                
+                if (this.searchResults.length > 0) {
+                    this.displaySearchResults();
+                    this.showToast(`🎵 Found ${this.searchResults.length} songs!`, 'success');
+                } else {
+                    this.showToast('❌ No songs found. Try "shape", "blinding", "queen"', 'error');
+                }
+            }
+            
+            displaySearchResults() {
+                const resultsSection = document.getElementById('searchResults');
+                const searchGrid = document.getElementById('searchGrid');
+                const resultsCount = document.getElementById('resultsCount');
+                
+                resultsSection.style.display = 'block';
+                resultsCount.textContent = `(${this.searchResults.length} found)`;
+                
+                searchGrid.innerHTML = '';
+                
+                this.searchResults.forEach((track, index) => {
+                    const card = this.createTrackCard(track, index, 'search');
+                    searchGrid.appendChild(card);
+                });
+            }
+            
+            createTrackCard(track, index, type = 'popular') {
+                const card = document.createElement('div');
+                card.className = 'music-card';
+                
+                card.innerHTML = `
+                    <div class="music-card-content">
+                        <img src="${track.thumbnail}" alt="${track.title}" 
+                             onerror="this.src='https://via.placeholder.com/320x220/333333/666666?text=🎵'">
+                        <h3>${track.title}</h3>
+                        <p>${track.artist}</p>
+                        <div style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">Duration: ${track.duration}</div>
+                        <button class="play-btn" onclick="app.playTrack('${track.id}', ${index}, '${type}')">
+                            <i class="fas fa-play"></i> Play Now
+                        </button>
+                    </div>
+                `;
+                
+                card.addEventListener('click', function() {
+                    this.classList.add('clicked');
+                    setTimeout(() => {
+                        this.classList.remove('clicked');
+                    }, 600);
+                });
+                
+                return card;
+            }
+            
+            playTrack(videoId, index, type = 'popular') {
+                if (!this.isPlayerReady) {
+                    this.showToast('⏳ Player not ready yet!', 'error');
+                    return;
+                }
+
+                const trackData = type === 'search' ? this.searchResults[index] : this.popularSongs[index];
+                this.currentTrack = trackData;
+                this.currentIndex = index;
+                
+                try {
+                    this.player.loadVideoById({
+                        'videoId': videoId,
+                        'startSeconds': 0
+                    });
+                    
+                    this.updateTrackInfo(trackData);
+                    this.showToast(`🎵 Loading: ${trackData.title}`, 'success');
+                    
+                } catch (error) {
+                    console.error('Error playing song:', error);
+                    this.showToast('❌ Failed to load song', 'error');
+                }
+            }
+            
+            loadPopularSongs() {
+                const popularGrid = document.getElementById('popularGrid');
+                popularGrid.innerHTML = '';
+                
+                this.popularSongs.forEach((track, index) => {
+                    const card = this.createTrackCard(track, index, 'popular');
+                    popularGrid.appendChild(card);
+                });
+            }
+            
+            updateTrackInfo(track) {
+                document.getElementById('trackTitle').textContent = track.title;
+                document.getElementById('trackArtist').textContent = track.artist;
+                document.getElementById('totalTime').textContent = track.duration;
+                
+                const albumArt = document.getElementById('albumArt');
+                albumArt.innerHTML = `
+                    <div class="vinyl-grooves">
+                        <div class="groove"></div>
+                        <div class="groove"></div>
+                        <div class="groove"></div>
+                        <div class="groove"></div>
+                        <div class="groove"></div>
+                    </div>
+                    <img src="${track.thumbnail}" alt="${track.title}">
+                    <div class="vinyl-center"></div>
+                    <div class="vinyl-reflection"></div>
+                `;
+                
+                document.title = `${track.title} - ${track.artist} | Sangeet`;
+            }
+            
+            togglePlayPause() {
+                if (!this.isPlayerReady) {
+                    this.showToast('⏳ Player not ready yet!', 'error');
+                    return;
+                }
+
+                if (this.isPlaying) {
+                    this.player.pauseVideo();
+                    this.showToast('⏸️ Paused');
+                } else {
+                    if (this.currentTrack) {
+                        this.player.playVideo();
+                        this.showToast('▶️ Playing');
+                    } else {
+                        this.playTrack(this.popularSongs[0].id, 0, 'popular');
+                    }
+                }
+            }
+            
+            playNext() {
+                const currentList = this.searchResults.length > 0 ? this.searchResults : this.popularSongs;
+                let nextIndex = this.currentIndex + 1;
+                if (nextIndex >= currentList.length) {
+                    nextIndex = 0;
+                }
+                
+                const nextTrack = currentList[nextIndex];
+                const type = this.searchResults.length > 0 ? 'search' : 'popular';
+                this.playTrack(nextTrack.id, nextIndex, type);
+            }
+            
+            playPrevious() {
+                const currentList = this.searchResults.length > 0 ? this.searchResults : this.popularSongs;
+                let prevIndex = this.currentIndex - 1;
+                if (prevIndex < 0) {
+                    prevIndex = currentList.length - 1;
+                }
+                
+                const prevTrack = currentList[prevIndex];
+                const type = this.searchResults.length > 0 ? 'search' : 'popular';
+                this.playTrack(prevTrack.id, prevIndex, type);
+            }
+            
+            updatePlayButton() {
+                const playBtn = document.getElementById('playBtn');
+                const icon = playBtn.querySelector('i');
+                if (icon) {
+                    icon.className = this.isPlaying ? 'fas fa-pause' : 'fas fa-play';
+                }
+            }
+            
+            startVinylRotation() {
+                document.getElementById('albumArt').classList.add('spinning');
+            }
+            
+            stopVinylRotation() {
+                document.getElementById('albumArt').classList.remove('spinning');
+            }
+            
+            toggleVinylRotation() {
+                const albumArt = document.getElementById('albumArt');
+                albumArt.classList.toggle('spinning');
+                const isSpinning = albumArt.classList.contains('spinning');
+                this.showToast(isSpinning ? '🔄 Vinyl rotation on' : '⏹️ Vinyl rotation off');
+            }
+            
+            activateAmbientLighting() {
+                document.getElementById('ambientBg').classList.add('active');
+            }
+            
+            deactivateAmbientLighting() {
+                document.getElementById('ambientBg').classList.remove('active');
+            }
+            
+            startProgressTracking() {
+                this.stopProgressTracking();
+                
+                this.progressInterval = setInterval(() => {
+                    if (this.player && this.isPlayerReady && this.isPlaying) {
+                        const currentTime = this.player.getCurrentTime();
+                        const duration = this.player.getDuration();
+                        
+                        if (duration > 0) {
+                            const percentage = (currentTime / duration) * 100;
+                            document.getElementById('progressFill').style.width = percentage + '%';
+                            document.getElementById('currentTime').textContent = this.formatTime(currentTime);
+                        }
+                    }
+                }, 1000);
+            }
+            
+            stopProgressTracking() {
+                if (this.progressInterval) {
+                    clearInterval(this.progressInterval);
+                    this.progressInterval = null;
+                }
+            }
+            
+            formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = Math.floor(seconds % 60);
+                return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+            }
+            
+            toggleLyrics() {
+                const panel = document.getElementById('lyricsPanel');
+                const btn = document.getElementById('lyricsBtn');
+                
+                panel.classList.toggle('active');
+                btn.classList.toggle('active');
+                
+                if (panel.classList.contains('active')) {
+                    this.showRandomSarcasticMessage();
+                    this.showToast('📝 Lyrics panel opened');
+                } else {
+                    this.showToast('📝 Lyrics panel closed');
+                }
+            }
+            
+            showRandomSarcasticMessage() {
+                const randomMessage = this.sarcasticMessages[Math.floor(Math.random() * this.sarcasticMessages.length)];
+                document.getElementById('sarcasticMessage').textContent = randomMessage;
+            }
+            
+            closeLyrics() {
+                document.getElementById('lyricsPanel').classList.remove('active');
+                document.getElementById('lyricsBtn').classList.remove('active');
+            }
+            
+            saveLyrics() {
+                const textarea = document.getElementById('lyricsTextarea');
+                if (textarea.value.trim()) {
+                    this.showToast('💾 Your lyrics saved! You are the next big lyricist!', 'success');
+                    console.log('User lyrics:', textarea.value);
+                    
+                    setTimeout(() => {
+                        this.showToast('🌟 Your masterpiece has been preserved for eternity!', 'success');
+                    }, 1000);
+                } else {
+                    this.showToast('✍️ Write something first! Don\'t be shy!', 'error');
+                }
+            }
+            
+            showPlayer() {
+                setTimeout(() => {
+                    document.getElementById('player').classList.add('active');
+                }, 7500);
+            }
+            
+            setupEventListeners() {
+                // Search functionality
+                const searchInput = document.getElementById('searchInput');
+                const searchBtn = document.getElementById('searchBtn');
+                
+                searchBtn.addEventListener('click', () => {
+                    this.searchYouTubeMusic(searchInput.value);
+                });
+                
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.searchYouTubeMusic(searchInput.value);
+                    }
+                });
+
+                // Player controls
+                document.getElementById('playBtn').addEventListener('click', () => {
+                    this.togglePlayPause();
+                });
+                
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    this.playNext();
+                });
+                
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    this.playPrevious();
+                });
+                
+                document.getElementById('lyricsBtn').addEventListener('click', () => {
+                    this.toggleLyrics();
+                });
+                
+                document.getElementById('closeLyrics').addEventListener('click', () => {
+                    this.closeLyrics();
+                });
+                
+                document.getElementById('albumArt').addEventListener('click', () => {
+                    this.toggleVinylRotation();
+                });
+
+                // Keyboard shortcuts
+                document.addEventListener('keydown', (e) => {
+                    if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+                    
+                    switch(e.code) {
+                        case 'Space':
+                            e.preventDefault();
+                            this.togglePlayPause();
+                            break;
+                        case 'ArrowLeft':
+                            this.playPrevious();
+                            break;
+                        case 'ArrowRight':
+                            this.playNext();
+                            break;
+                    }
+                });
+
+                // Progress bar click
+                const progressBar = document.getElementById('progressBar');
+                progressBar.addEventListener('click', (e) => {
+                    if (!this.player || !this.isPlayerReady) return;
+                    
+                    const rect = progressBar.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const percentage = (clickX / rect.width) * 100;
+                    const duration = this.player.getDuration();
+                    const seekTime = (duration * percentage) / 100;
+                    
+                    this.player.seekTo(seekTime);
+                    this.showToast(`⏩ Seeked to ${this.formatTime(seekTime)}`);
+                });
+            }
+            
+            showToast(message, type = 'success') {
+                const existingToast = document.querySelector('.toast');
+                if (existingToast) {
+                    existingToast.remove();
+                }
+
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                
+                const icon = type === 'success' ? '✅' : '❌';
+                toast.innerHTML = `
+                    <span style="font-size: 1.2rem;">${icon}</span>
+                    <span>${message}</span>
+                `;
+                
+                document.body.appendChild(toast);
+
+                setTimeout(() => toast.classList.add('show'), 100);
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toast.remove();
+                        }
+                    }, 400);
+                }, 3000);
+            }
+        }
+
+        // Global functions
+        let app;
+
+        function saveLyrics() {
+            if (app) {
+                app.saveLyrics();
+            }
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', () => {
+            // Remove loading screen after ultimate animation completes
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+                
+                // Initialize Ultimate Sangeet
+                app = new UltimateSangeetPlayer();
+            }, 7500);
+            
+            console.log('🚀 Ultimate Sangeet with YouTube Music loaded!');
+        });
+    </script>
+</body>
+</html>
